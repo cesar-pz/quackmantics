@@ -55,7 +55,8 @@ function vigenereDecode(cipherText, key) {
 function getDailyIndex(seedDate) {
   const date = new Date(seedDate);
   const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  return Math.abs(Math.floor(utcDate / 86400000)) % words.length;
+  const dayIndex = Math.floor(utcDate / 86400000);
+  return ((dayIndex % words.length) + words.length) % words.length;
 }
 
 function getSecretWord() {
@@ -136,7 +137,7 @@ guessForm.addEventListener('submit', (event) => {
   guessCount += 1;
 
   const similarity = cosineSimilarity(guessVector, WORD_VECTORS[secretWord]);
-  const scorePct = Math.max(0, similarity * 100);
+  const scorePct = similarity * 100;
   const proximity = proximityMessage(scorePct / 100);
 
   const row = document.createElement('tr');
