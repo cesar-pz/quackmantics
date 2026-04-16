@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quackmantics</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top-bar">
+        <div>
+          <h1>🦆 Quackmantics</h1>
+          <p class="subtitle">Guess the secret word with Duck Distance.</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          🌙 Dark Mode
+        </button>
+      </header>
+
+      <section class="panel">
+        <p id="status" class="status">Take a guess to start paddling.</p>
+        <form id="guessForm" class="guess-form" autocomplete="off">
+          <input id="guessInput" name="guess" type="text" placeholder="Enter a guess" required />
+          <button type="submit">Submit Guess</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Guess #</th>
+                <th>Word</th>
+                <th>Similarity Score</th>
+                <th>Proximity</th>
+              </tr>
+            </thead>
+            <tbody id="guessTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="winBurst" class="win-burst" aria-hidden="true"></div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
