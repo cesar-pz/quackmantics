@@ -1,4 +1,5 @@
 const VIGENERE_KEY = 'QUACK';
+const COLD_THRESHOLD = 0;
 const HOT_THRESHOLD = 0.9;
 const WARM_THRESHOLD = 0.72;
 const MS_PER_DAY = 86400000;
@@ -55,8 +56,8 @@ function vigenereDecode(cipherText, key) {
 
 function getDailyIndex(seedDate) {
   const date = new Date(seedDate);
-  const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  const dayIndex = Math.floor(utcDate / MS_PER_DAY);
+  const utcTimestamp = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  const dayIndex = Math.floor(utcTimestamp / MS_PER_DAY);
   return ((dayIndex % words.length) + words.length) % words.length;
 }
 
@@ -94,6 +95,7 @@ function cosineSimilarity(a, b) {
 function proximityMessage(score) {
   if (score >= HOT_THRESHOLD) return 'Birds of a feather!';
   if (score >= WARM_THRESHOLD) return 'Paddling closer';
+  if (score >= COLD_THRESHOLD) return 'In a different pond';
   return 'In a different pond';
 }
 
