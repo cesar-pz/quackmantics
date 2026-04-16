@@ -1,4 +1,6 @@
 const VIGENERE_KEY = 'QUACK';
+const HOT_THRESHOLD = 0.9;
+const WARM_THRESHOLD = 0.72;
 
 const WORD_VECTORS = {
   duck: [0.98, 0.91, 0.84, 0.25, 0.21],
@@ -88,8 +90,8 @@ function cosineSimilarity(a, b) {
 }
 
 function proximityMessage(score) {
-  if (score >= 0.9) return 'Birds of a feather!';
-  if (score >= 0.72) return 'Paddling closer';
+  if (score >= HOT_THRESHOLD) return 'Birds of a feather!';
+  if (score >= WARM_THRESHOLD) return 'Paddling closer';
   return 'In a different pond';
 }
 
@@ -138,12 +140,17 @@ guessForm.addEventListener('submit', (event) => {
   const proximity = proximityMessage(scorePct / 100);
 
   const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${guessCount}</td>
-    <td>${guess}</td>
-    <td>${scorePct.toFixed(2)}%</td>
-    <td>${proximity}</td>
-  `;
+  const guessNumberCell = document.createElement('td');
+  const wordCell = document.createElement('td');
+  const scoreCell = document.createElement('td');
+  const proximityCell = document.createElement('td');
+
+  guessNumberCell.textContent = String(guessCount);
+  wordCell.textContent = guess;
+  scoreCell.textContent = `${scorePct.toFixed(2)}%`;
+  proximityCell.textContent = proximity;
+
+  row.append(guessNumberCell, wordCell, scoreCell, proximityCell);
   guessTableBody.prepend(row);
 
   if (guess === secretWord) {

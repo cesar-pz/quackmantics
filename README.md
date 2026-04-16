@@ -4,7 +4,7 @@ A minimal duck-themed Semantle-style word game.
 
 ## Run
 
-Open `/home/runner/work/quackmantics/quackmantics/index.html` in a browser.
+Open `index.html` in a browser.
 
 ## URL secret words
 
