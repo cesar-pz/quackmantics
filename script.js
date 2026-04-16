@@ -1,6 +1,7 @@
 const VIGENERE_KEY = 'QUACK';
 const HOT_THRESHOLD = 0.9;
 const WARM_THRESHOLD = 0.72;
+const MS_PER_DAY = 86400000;
 
 const WORD_VECTORS = {
   duck: [0.98, 0.91, 0.84, 0.25, 0.21],
@@ -55,7 +56,7 @@ function vigenereDecode(cipherText, key) {
 function getDailyIndex(seedDate) {
   const date = new Date(seedDate);
   const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  const dayIndex = Math.floor(utcDate / 86400000);
+  const dayIndex = Math.floor(utcDate / MS_PER_DAY);
   return ((dayIndex % words.length) + words.length) % words.length;
 }
 
@@ -138,7 +139,7 @@ guessForm.addEventListener('submit', (event) => {
 
   const similarity = cosineSimilarity(guessVector, WORD_VECTORS[secretWord]);
   const scorePct = similarity * 100;
-  const proximity = proximityMessage(scorePct / 100);
+  const proximity = proximityMessage(similarity);
 
   const row = document.createElement('tr');
   const guessNumberCell = document.createElement('td');
