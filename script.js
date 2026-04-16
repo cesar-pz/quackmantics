@@ -1,5 +1,4 @@
 const VIGENERE_KEY = 'QUACK';
-const COLD_THRESHOLD = 0;
 const HOT_THRESHOLD = 0.9;
 const WARM_THRESHOLD = 0.72;
 const MS_PER_DAY = 86400000;
@@ -95,7 +94,6 @@ function cosineSimilarity(a, b) {
 function proximityMessage(score) {
   if (score >= HOT_THRESHOLD) return 'Birds of a feather!';
   if (score >= WARM_THRESHOLD) return 'Paddling closer';
-  if (score >= COLD_THRESHOLD) return 'In a different pond';
   return 'In a different pond';
 }
 
@@ -114,6 +112,8 @@ function setTheme(theme) {
 const savedTheme = localStorage.getItem('quackmantics-theme');
 if (savedTheme === 'dark' || savedTheme === 'light') {
   setTheme(savedTheme);
+} else {
+  setTheme('light');
 }
 
 themeToggle.addEventListener('click', () => {
